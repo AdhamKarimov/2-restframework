@@ -25,7 +25,7 @@ class UserListView(APIView):
 class UserDetailView(APIView):
     def get(self, request, pk):
         user = User.objects.filtr(pk=pk).frist()
-        serializer = UserSerializer(user , data=request.data)
+        serializer = UserSerializer(user)
         data = {
             'status': status.HTTP_200_OK,
             'massage':'user',
@@ -54,7 +54,7 @@ class UserCreateView(APIView):
 
 class UserDeleteView(APIView):
     def delete(self, request, pk):
-        user = User.objects.filter(pk=pk).delete()
+        user = User.objects.filter(pk=pk)
         if user is None:
             data = {
                 'status': status.HTTP_404_NOT_FOUND,
@@ -62,6 +62,7 @@ class UserDeleteView(APIView):
                 'desc': serializer.errors
             }
             return Response(data)
+        user.delete()
         data = {
             'status': status.HTTP_204_NO_CONTENT,
             'massage': 'user ochirlidi',
