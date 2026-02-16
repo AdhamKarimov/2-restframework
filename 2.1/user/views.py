@@ -59,14 +59,12 @@ class UserDeleteView(APIView):
             data = {
                 'status': status.HTTP_404_NOT_FOUND,
                 'massage': 'User topilmadi',
-                'desc': serializer.errors
             }
             return Response(data)
         user.delete()
         data = {
             'status': status.HTTP_204_NO_CONTENT,
             'massage': 'user ochirlidi',
-            'data': user
         }
         return Response(data)
 
